@@ -39,8 +39,18 @@ Note.init({
 });
 
 app.get("/api/notes", async (req, res) => {
-   const notes = await Note.findAll();
-   res.json(notes);
+  const notes = await Note.findAll();
+  res.json(notes);
+});
+
+app.post("/api/notes", async (req, res) => {
+  try {
+    const note = Note.create(req.body); 
+    return res.json(note);
+  }
+  catch(error) {
+    return res.status(400).send({error});
+  }
 });
 
 const PORT = process.env.PORT || 5000;
